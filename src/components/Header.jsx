@@ -2,9 +2,11 @@ import React from "react";
 
 function Header() {
   return (
-    <header className="bg-green-100 py-4 shadow-md px-6">
+    <header className="bg-gray-100 py-4 shadow-md px-6">
       <div className="container mx-auto flex justify-between items-center h-16">
-        <div className="text-2xl font-semibold text-gray-800">Blog Yazısı</div>
+        <div className="text-2xl font-semibold text-gray-800">
+          Dümenden Blog
+        </div>
         <nav>
           <ul className="flex space-x-6">
             <li>
