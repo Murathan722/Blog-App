@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/UserSlice";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 
@@ -17,10 +18,7 @@ function Register() {
 
   const onSubmit = (data) => {
     axios
-      .post(
-        "https://api.mockfly.dev/mocks/527e7abe-5719-4b67-acbd-4a816e13c451",
-        data
-      )
+      .post("https://my.api.mockaroo.com/users.json", data)
       .then((response) => {
         dispatch(setUser(response.data));
         toast.success("Kayıt başarılı! Anasayfaya yönlendiriliyorsunuz...");
@@ -29,6 +27,7 @@ function Register() {
       })
       .catch((error) => {
         toast.error("Kayıt işlemi başarısız, lütfen tekrar deneyin.");
+        reset();
         console.log("Kayıt işlemi başarısız", error);
       });
   };
@@ -36,7 +35,7 @@ function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold text-center mb-6">Kayıt Ol</h2>
+        {/* <h2 className="text-2xl font-semibold text-center mb-6">Kayıt Ol</h2> */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
