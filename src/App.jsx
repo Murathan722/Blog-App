@@ -4,10 +4,12 @@ import Header from "./components/Header";
 import WhyChooseUs from "./components/WhyChooseUs";
 import GetStarted from "./components/GetStarted";
 import Register from "./components/Register";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <Router>
+      <ToastContainer />
       <Routes>
         <Route
           path="/"
