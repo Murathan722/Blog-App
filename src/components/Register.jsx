@@ -34,17 +34,10 @@ function Register() {
   // };
 
   const onSubmit = () => {
-    const toastDuration = 3000;
-
     toast.success("Kayıt başarılı! Anasayfaya yönlendiriliyorsunuz...", {
-      autoClose: toastDuration,
+      onClose: () => navigate("/AnaSayfa"),
+      autoClose: 2000,
     });
-
-    // Mesajın kapanması için bekleyin ve ardından yönlendirme yapın
-    setTimeout(() => {
-      reset();
-      navigate("/AnaSayfa");
-    }, toastDuration);
   };
 
   return (
