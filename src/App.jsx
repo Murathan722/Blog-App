@@ -5,6 +5,7 @@ import WhyChooseUs from "./components/WhyChooseUs";
 import GetStarted from "./components/GetStarted";
 import Register from "./components/Register";
 import { ToastContainer } from "react-toastify";
+import AnaSayfa from "./components/AnaSayfa";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             </>
           }
         />
+        <Route path="AnaSayfa" element={<AnaSayfa />} />
       </Routes>
     </Router>
   );

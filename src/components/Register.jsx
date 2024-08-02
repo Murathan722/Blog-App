@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../redux/UserSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const {
@@ -15,21 +15,36 @@ function Register() {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    axios
-      .post("https://my.api.mockaroo.com/users.json", data)
-      .then((response) => {
-        dispatch(setUser(response.data));
-        toast.success("Kayıt başarılı! Anasayfaya yönlendiriliyorsunuz...");
-        reset();
-        navigate("/AnaSayfa");
-      })
-      .catch((error) => {
-        toast.error("Kayıt işlemi başarısız, lütfen tekrar deneyin.");
-        reset();
-        console.log("Kayıt işlemi başarısız", error);
-      });
+  // const onSubmit = (data) => {
+  //   axios
+  //     .post("https://my.api.mockaroo.com/users.json", data)
+  //     .then((response) => {
+  //       dispatch(setUser(response.data));
+  //       toast.success("Kayıt başarılı! Anasayfaya yönlendiriliyorsunuz...");
+  //       reset();
+  //       navigate("/AnaSayfa");
+  //     })
+  //     .catch((error) => {
+  //       toast.error("Kayıt işlemi başarısız, lütfen tekrar deneyin.");
+  //       reset();
+  //       console.log("Kayıt işlemi başarısız", error);
+  //     });
+  // };
+
+  const onSubmit = () => {
+    const toastDuration = 3000;
+
+    toast.success("Kayıt başarılı! Anasayfaya yönlendiriliyorsunuz...", {
+      autoClose: toastDuration,
+    });
+
+    // Mesajın kapanması için bekleyin ve ardından yönlendirme yapın
+    setTimeout(() => {
+      reset();
+      navigate("/AnaSayfa");
+    }, toastDuration);
   };
 
   return (
