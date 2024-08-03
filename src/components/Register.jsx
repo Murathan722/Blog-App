@@ -35,7 +35,7 @@ function Register() {
 
   const onSubmit = () => {
     toast.success("Kayıt başarılı! Anasayfaya yönlendiriliyorsunuz...", {
-      onClose: () => navigate("/AnaSayfa"),
+      onClose: () => navigate("/BlogForm"),
       autoClose: 2000,
     });
   };

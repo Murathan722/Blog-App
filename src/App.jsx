@@ -5,7 +5,7 @@ import WhyChooseUs from "./components/WhyChooseUs";
 import GetStarted from "./components/GetStarted";
 import Register from "./components/Register";
 import { ToastContainer } from "react-toastify";
-import AnaSayfa from "./components/AnaSayfa";
+import BlogForm from "./components/BlogForm";
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
             </>
           }
         />
-        <Route path="AnaSayfa" element={<AnaSayfa />} />
+        <Route path="BlogForm" element={<BlogForm />} />
       </Routes>
     </Router>
   );
