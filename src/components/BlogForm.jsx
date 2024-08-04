@@ -19,15 +19,8 @@ const BlogForm = () => {
     dispatch(setStatus("loading"));
 
     setTimeout(() => {
-      const success = Math.random() > 0.2;
-
-      if (success) {
-        dispatch(addPost({ title, content }));
-        dispatch(setStatus("succeeded"));
-      } else {
-        dispatch(setError("Blog yazısı kaydedilirken bir hata oluştu."));
-        dispatch(setStatus("failed"));
-      }
+      dispatch(addPost({ title, content }));
+      dispatch(setStatus("succeeded"));
     }, 1000);
   };
 
