@@ -1,20 +1,33 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTitle, setContent, setStatus, resetForm } from "../redux/FormSlice";
+import {
+  addPost,
+  setTitle,
+  setContent,
+  setStatus,
+  setError,
+} from "../redux/BlogSlice";
 
 const BlogForm = () => {
   const dispatch = useDispatch();
-  const { title, content, status } = useSelector((state) => state.form);
+  const { title, content, posts, status, error } = useSelector(
+    (state) => state.blog
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(setStatus("loading"));
 
-    // Simulate an API call
     setTimeout(() => {
-      dispatch(setStatus("succeeded"));
-      // Optionally clear the form after submission
-      dispatch(resetForm());
+      const success = Math.random() > 0.2;
+
+      if (success) {
+        dispatch(addPost({ title, content }));
+        dispatch(setStatus("succeeded"));
+      } else {
+        dispatch(setError("Blog yazısı kaydedilirken bir hata oluştu."));
+        dispatch(setStatus("failed"));
+      }
     }, 1000);
   };
 
@@ -67,21 +80,31 @@ const BlogForm = () => {
           {status === "loading" ? "Yükleniyor..." : "Yayınla"}
         </button>
         {status === "failed" && (
-          <p className="text-red-500 text-sm mt-1">
-            Blog yazısı kaydedilirken bir hata oluştu.
+          <p className="text-red-500 text-sm mt-1">{error}</p>
+        )}
+        {status === "succeeded" && !error && (
+          <p className="text-green-500 text-sm mt-1">
+            Blog yazısı başarıyla yayınlandı!
           </p>
         )}
       </form>
 
-      <div className="mt-4 p-4 bg-gray-100 border border-gray-300 rounded-md">
-        <h3 className="text-lg font-semibold">Blog Yazısı:</h3>
-        <p>
-          <strong>Başlık:</strong> {title}
-        </p>
-        <p>
-          <strong>İçerik:</strong> {content}
-        </p>
-      </div>
+      {posts.length > 0 && (
+        <div className="mt-4">
+          <div className="p-4 bg-gray-100 border border-gray-300 rounded-md">
+            <h3 className="text-lg font-semibold">Blog Yazıları:</h3>
+            {posts.map((post, index) => (
+              <div
+                key={index}
+                className="mt-4 p-4 bg-white border border-gray-200 rounded-md"
+              >
+                <h4 className="text-xl font-semibold">{post.title}</h4>
+                <p>{post.content}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

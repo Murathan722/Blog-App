@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./UserSlice";
-import formReducer from "./FormSlice";
+import blogReducer from "./BlogSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    form: formReducer,
+    blog: blogReducer,
   },
 });
