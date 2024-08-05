@@ -6,6 +6,7 @@ import {
   setContent,
   setStatus,
   setError,
+  deletePost,
 } from "../redux/BlogSlice";
 
 const BlogForm = () => {
@@ -22,6 +23,10 @@ const BlogForm = () => {
       dispatch(addPost({ title, content }));
       dispatch(setStatus("succeeded"));
     }, 1000);
+  };
+
+  const handleDelete = (index) => {
+    dispatch(deletePost(index));
   };
 
   return (
@@ -89,10 +94,18 @@ const BlogForm = () => {
             {posts.map((post, index) => (
               <div
                 key={index}
-                className="mt-4 p-4 bg-white border border-gray-200 rounded-md"
+                className="mt-4 p-4 bg-white border border-gray-200 rounded-md flex justify-between items-start"
               >
-                <h4 className="text-xl font-semibold">{post.title}</h4>
-                <p>{post.content}</p>
+                <div className="flex-1">
+                  <h4 className="text-xl font-semibold">{post.title}</h4>
+                  <p>{post.content}</p>
+                </div>
+                <button
+                  onClick={() => handleDelete(index)}
+                  className="ml-4 px-3 py-1 border border-red-500 text-red-500 rounded-md hover:bg-red-100"
+                >
+                  Sil
+                </button>
               </div>
             ))}
           </div>

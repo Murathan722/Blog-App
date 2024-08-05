@@ -27,10 +27,21 @@ const BlogSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
+    deletePost(state, action) {
+      state.posts = state.posts.filter(
+        (post, index) => index !== action.payload
+      );
+    },
   },
 });
 
-export const { addPost, setTitle, setContent, setStatus, setError } =
-  BlogSlice.actions;
+export const {
+  addPost,
+  setTitle,
+  setContent,
+  setStatus,
+  setError,
+  deletePost,
+} = BlogSlice.actions;
 
 export default BlogSlice.reducer;
