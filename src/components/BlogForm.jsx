@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import {
   addPost,
   setTitle,
@@ -7,6 +8,8 @@ import {
   setStatus,
   setError,
   deletePost,
+  loadPosts,
+  savePosts,
 } from "../redux/BlogSlice";
 
 const BlogForm = () => {
@@ -15,18 +18,30 @@ const BlogForm = () => {
     (state) => state.blog
   );
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    dispatch(loadPosts());
+  }, [dispatch]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(setStatus("loading"));
-
-    setTimeout(() => {
+    try {
       dispatch(addPost({ title, content }));
+      await dispatch(savePosts([...posts, { title, content }])).unwrap();
       dispatch(setStatus("succeeded"));
-    }, 1000);
+    } catch (err) {
+      dispatch(setStatus("failed"));
+      dispatch(setError(err.message));
+    }
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = async (index) => {
     dispatch(deletePost(index));
+    try {
+      await dispatch(savePosts(posts.filter((_, i) => i !== index))).unwrap();
+    } catch (err) {
+      dispatch(setError(err.message));
+    }
   };
 
   return (
