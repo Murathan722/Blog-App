@@ -22,26 +22,37 @@ const BlogForm = () => {
     dispatch(loadPosts());
   }, [dispatch]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(setStatus("loading"));
-    try {
-      dispatch(addPost({ title, content }));
-      await dispatch(savePosts([...posts, { title, content }])).unwrap();
-      dispatch(setStatus("succeeded"));
-    } catch (err) {
-      dispatch(setStatus("failed"));
-      dispatch(setError(err.message));
-    }
+
+    dispatch(addPost({ title, content }));
+
+    dispatch(savePosts([...posts, { title, content }]))
+      .then(() => {
+        dispatch(setStatus("succeeded"));
+      })
+      .catch((err) => {
+        dispatch(setStatus("failed"));
+        dispatch(setError(err.message));
+        console.error(
+          "Blog yazısı kaydedilirken bir hata oluştu:",
+          err.message
+        );
+      });
   };
 
-  const handleDelete = async (index) => {
+  const handleDelete = (index) => {
     dispatch(deletePost(index));
-    try {
-      await dispatch(savePosts(posts.filter((_, i) => i !== index))).unwrap();
-    } catch (err) {
-      dispatch(setError(err.message));
-    }
+
+    dispatch(savePosts(posts.filter((_, i) => i !== index)))
+      .then(() => {
+        console.log("Post başarıyla silindi ve liste güncellendi.");
+      })
+      .catch((err) => {
+        dispatch(setError(err.message));
+        console.error("Post silme sırasında bir hata oluştu:", err.message);
+      });
   };
 
   return (
