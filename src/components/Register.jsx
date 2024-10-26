@@ -43,7 +43,6 @@ function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-        {/* <h2 className="text-2xl font-semibold text-center mb-6">Kayıt Ol</h2> */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label

@@ -25,9 +25,7 @@ const BlogForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(setStatus("loading"));
-
     dispatch(addPost({ title, content }));
-
     dispatch(savePosts([...posts, { title, content }]))
       .then(() => {
         dispatch(setStatus("succeeded"));
